@@ -1,6 +1,7 @@
 package go_pushover_client
 
 import (
+	"log"
 	"net/http"
 	"net/url"
 )
@@ -18,13 +19,25 @@ func (p *PushoverClient) new(token string) {
 }
 
 func (p *PushoverClient) Send(to string, message string, priority string) {
+
 	payload := url.Values{
 		"token":    {p.ApplicationToken},
 		"user":     {to},
 		"message":  {message},
 		"priority": {priority},
 	}
-	http.PostForm(pushoverURL, payload)
+
+	resp, err := http.PostForm(pushoverURL, payload)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	responseBytes := make([]byte, 1024)
+	n, err := resp.Body.Read(responseBytes)
+
+	responseString := string(responseBytes[:n])
+
+	log.Println(responseString)
 }
 
 func New(token string) *PushoverClient {
