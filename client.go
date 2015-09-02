@@ -1,7 +1,7 @@
 package go_pushover_client
 
 import (
-	"http"
+	"net/http"
 	"net/url"
 )
 
