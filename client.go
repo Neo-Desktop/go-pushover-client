@@ -17,7 +17,7 @@ func (p *PushoverClient) new(token string) {
 	p.ApplicationToken = token
 }
 
-func (p *PushoverClient) send(to string, message string, priority string) {
+func (p *PushoverClient) Send(to string, message string, priority string) {
 	payload := url.Values{
 		"token":    {p.ApplicationToken},
 		"user":     {to},
