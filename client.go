@@ -17,7 +17,7 @@ func (p *PushoverClient) new(token string) {
 	p.ApplicationToken = token
 }
 
-func (p *PushoverClient) send(to string, message string, priority int32) {
+func (p *PushoverClient) send(to string, message string, priority string) {
 	payload := url.Values{
 		"token":    {p.ApplicationToken},
 		"user":     {to},
@@ -27,7 +27,7 @@ func (p *PushoverClient) send(to string, message string, priority int32) {
 	http.PostForm(pushoverURL, payload)
 }
 
-func NewPushoverClient(token string) {
+func New(token string) *PushoverClient {
 	out := PushoverClient{}
 	out.new(token)
 	return &out
